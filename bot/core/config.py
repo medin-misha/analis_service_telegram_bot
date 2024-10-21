@@ -8,6 +8,7 @@ load_dotenv()
 
 class Settings(BaseSettings):
     token: str
+    server: str
     parse_mode: str = "HTML"
 
     class Config:
