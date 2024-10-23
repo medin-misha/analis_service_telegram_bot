@@ -2,11 +2,11 @@ import asyncio
 from core import settings
 from core.handlers import start_router
 from aiogram import Bot, Dispatcher
-
+from aiogram.fsm.storage.memory import MemoryStorage
 
 async def main():
     bot = Bot(token=settings.token)
-    dp = Dispatcher()
+    dp = Dispatcher(storage=MemoryStorage())
 
     dp.include_routers(start_router)
 
