@@ -31,6 +31,10 @@ class UniversalApiFuncs:
         response = requests.get(url=self.url + str(id))
         return self._return_response(response=response)
 
+    def get_by_name(self, name: str) -> dict | None | int:
+        response = requests.get(url=self.url + "name/" + name)
+        return self._return_response(response=response)
+
     def patch_by_id(self, model_data: dict, id: int) -> dict | None | int:
         response = requests.patch(url=self.url + str(id), json=model_data)
         return self._return_response(response=response)
