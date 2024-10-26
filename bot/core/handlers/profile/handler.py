@@ -19,7 +19,7 @@ async def create_user_profile(msg: Message, state: FSMContext):
         await msg.answer(text=text.get("create_profile"))
         await state.set_state(GetUserData.age)
     else:
-        
+
         await msg.answer(
             text=text.get("profile_info").format(
                 name=user_profile_data.name,
@@ -27,9 +27,10 @@ async def create_user_profile(msg: Message, state: FSMContext):
                 weight=user_profile_data.weight,
                 gender="мальчик" if user_profile_data.gender else "девочка",
             ),
-            reply_markup=profile_keyboard()
+            reply_markup=profile_keyboard(),
         )
         await state.clear()
+
 
 @router.message(F.text, GetUserData.age)
 async def set_age(msg: Message, state: FSMContext):
@@ -68,7 +69,7 @@ async def get_gender(msg: Message, state: FSMContext):
         await state.set_data(user_data)
 
         user_data: ReturnUser = create_user(user_data=user_data)
-        
+
         await msg.answer(
             text=text.get("profile_info").format(
                 name=user_data.name,

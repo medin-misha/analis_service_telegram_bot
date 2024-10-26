@@ -9,6 +9,7 @@ def gender_keyboard():
         builder.button(text=gender)
     return builder.as_markup()
 
+
 def profile_keyboard():
     builder = ReplyKeyboardBuilder()
 
