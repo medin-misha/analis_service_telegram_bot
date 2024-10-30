@@ -5,5 +5,6 @@ class GetAnalisData(StatesGroup):
     name = State()
     unit = State()
 
+
 class DeleteAnalis(StatesGroup):
     id = State()

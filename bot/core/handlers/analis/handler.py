@@ -19,6 +19,7 @@ router = Router()
 
 @router.message(Command("get_analis"))
 async def get_analis(msg: Message):
+    await state.clear()
     analis_list: ReturnAnalis = get_analis_by_user_name(
         user_name=msg.from_user.username
     )
@@ -38,6 +39,7 @@ async def get_analis(msg: Message):
 # Create analis handlers
 @router.message(Command("create_analis"))
 async def create_analis_handler(msg: Message, state: FSMContext):
+    await state.clear()
     await msg.answer(text=text.get("create_analis"))
     await state.set_state(GetAnalisData.name)
 
@@ -61,11 +63,14 @@ async def set_unit_in_analis(msg: Message, state: FSMContext):
     await msg.answer(text="Создан анализ:\n\n" + message)
     await state.clear()
 
+
 # Delete analid handler
 @router.message(Command("delete_analis"))
 async def delete_analis_by_id_handler(msg: Message, state: FSMContext):
+    await state.clear()
     await msg.answer(text=text.get("delete_analis"))
     await state.set_state(DeleteAnalis.id)
+
 
 @router.message(F.text, DeleteAnalis.id)
 async def get_id(msg: Message, state: FSMContext):
@@ -74,5 +79,8 @@ async def get_id(msg: Message, state: FSMContext):
         await state.set_state(DeleteAnalis.id)
     else:
         delete_analis_by_id(analis_id=int(msg.text))
-        await msg.answer(text=text.get("delete_analis_successful"), reply_markup=get_analis_keyboard())
+        await msg.answer(
+            text=text.get("delete_analis_successful"),
+            reply_markup=get_analis_keyboard(),
+        )
         await state.clear()
