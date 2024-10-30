@@ -5,7 +5,7 @@ from aiogram import Router, F
 
 from .messages import text, genders
 from .states import GetUserData
-from .keyboards import gender_keyboard, profile_keyboard
+from .keyboards import gender_keyboard, commands_keyboard
 from .utils import create_user, get_user_by_name
 from .validators import CreateUser, ReturnUser
 
@@ -27,7 +27,7 @@ async def create_user_profile(msg: Message, state: FSMContext):
                 weight=user_profile_data.weight,
                 gender="мальчик" if user_profile_data.gender else "девочка",
             ),
-            reply_markup=profile_keyboard(),
+            reply_markup=commands_keyboard(),
         )
         await state.clear()
 
@@ -76,6 +76,6 @@ async def get_gender(msg: Message, state: FSMContext):
                 age=user_data.age,
                 weight=user_data.weight,
                 gender="мальчик" if user_data.gender else "девочка",
-            )
+            ), reply_markup=commands_keyboard()
         )
         await state.clear()

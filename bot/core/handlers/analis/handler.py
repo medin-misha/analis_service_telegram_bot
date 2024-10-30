@@ -12,7 +12,7 @@ from .utils import (
 from .validators import CreateAnalis, ReturnAnalis
 from .messages import text
 from .states import GetAnalisData, DeleteAnalis
-from .keyboards import get_analis_keyboard
+from .keyboards import commands_keyboard
 
 router = Router()
 
@@ -24,7 +24,7 @@ async def get_analis(msg: Message):
         user_name=msg.from_user.username
     )
     if analis_list is None:
-        await msg.answer(text=text.get("no_analis"), reply_markup=get_analis_keyboard())
+        await msg.answer(text=text.get("no_analis"), reply_markup=commands_keyboard())
     else:
         message = text.get("get_analis_list")
         for one_analis in analis_list:
@@ -33,7 +33,7 @@ async def get_analis(msg: Message):
                 name=one_analis.get("name"),
                 unit=one_analis.get("unit"),
             )
-        await msg.answer(text=message, reply_markup=get_analis_keyboard())
+        await msg.answer(text=message, reply_markup=commands_keyboard())
 
 
 # Create analis handlers
@@ -60,7 +60,7 @@ async def set_unit_in_analis(msg: Message, state: FSMContext):
     message = text.get("get_analis_list_elem").format(
         id=analis.id, name=analis.name, unit=analis.unit
     )
-    await msg.answer(text="Создан анализ:\n\n" + message)
+    await msg.answer(text="Создан анализ:\n\n" + message, reply_markup=commands_keyboard())
     await state.clear()
 
 
@@ -81,6 +81,6 @@ async def get_id(msg: Message, state: FSMContext):
         delete_analis_by_id(analis_id=int(msg.text))
         await msg.answer(
             text=text.get("delete_analis_successful"),
-            reply_markup=get_analis_keyboard(),
+            reply_markup=commands_keyboard(),
         )
         await state.clear()
