@@ -19,3 +19,10 @@
 - token = "токен бота"
 - server = "адрес бэкенда с базой данных. В формате http://address"
 теперь нужно скопировать все зависимости `pip install -r requirements.txt` и запустить bot/main.py всё бот должен работать.
+### запуск с помощью docker
+Тут всё намного и намного тривиальнее. В Dockerfile есть переменные ENV token & server вот в них нужно подставить токен бота а так же адрес backend сервера. Собрать и запустить docker контейнер `sudo docker build -t bot .` и `sudo docker run -ti bot`
+
+## пол бэкенд
+Бекенд на моём github -> https://github.com/medin-misha/analis_service_backend 
+
+C платонической любовью MISHA
