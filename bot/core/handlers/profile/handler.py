@@ -14,12 +14,8 @@ router = Router()
 
 @router.message(Command("profile"))
 async def create_user_profile(msg: Message, state: FSMContext):
-    user_profile_data: ReturnUser = get_user_by_name(user_name=msg.from_user.username)
-    if isinstance(user_profile_data, int):
-        await msg.answer(text=text.get("create_profile"))
-        await state.set_state(GetUserData.age)
-    else:
-
+    try:
+        user_profile_data: ReturnUser = get_user_by_name(user_name=msg.from_user.username)
         await msg.answer(
             text=text.get("profile_info").format(
                 name=user_profile_data.name,
@@ -30,6 +26,9 @@ async def create_user_profile(msg: Message, state: FSMContext):
             reply_markup=commands_keyboard(),
         )
         await state.clear()
+    except:
+        await msg.answer(text=text.get("create_profile"))
+        await state.set_state(GetUserData.age)
 
 
 @router.message(F.text, GetUserData.age)

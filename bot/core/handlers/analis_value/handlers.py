@@ -125,7 +125,7 @@ async def get_analis_date(msg: Message, state: FSMContext):
 
     elif is_valid_date(date_string=msg.text):
         state_data = await state.get_data()
-        state_data["date"] =  datetime.strptime(msg.text, "%Y-%m-%d").date().strftime("%Y-%m-%d")
+        state_data["date"] = datetime.strptime(msg.text, "%Y-%m-%d").date().strftime("%Y-%m-%d")
         await state.set_data(state_data)
 
         await msg.answer(text=text.get("get_analis_date_success"))
@@ -162,7 +162,7 @@ async def get_analis_value(msg: Message, state: FSMContext):
         await state.clear()
 
 
-# Delere analis Value handlers
+# Delete analis Value handlers
 @router.message(Command("delete_analis_value"))
 async def delete_analis_value_handler(msg: Message, state: FSMContext):
     await state.clear()
@@ -223,7 +223,7 @@ async def get_analis_values_ids(msg: Message, state: FSMContext):
 @router.message(F.text, DeleteAnalisId.analis_value_id)
 async def delete_analis_value_by_id_handler(msg: Message, state: FSMContext):
     if not msg.text.isdigit:
-        await state.set_state(GetAnDeleteAnalisIdalisId.analis_id)
+        await state.set_state(DeleteAnalisId.analis_id)
         await msg.answer(text=text.get("get_analis_id_fail"))
     else:
         analis_id = await state.get_data()

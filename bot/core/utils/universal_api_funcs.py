@@ -50,4 +50,4 @@ class UniversalApiFuncs:
         )
         if response.status_code == 200:
             return response.content
-        return _return_response(response=response)
+        return self._return_response(response=response)
